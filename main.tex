@@ -1,0 +1,47 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Welcome to Overleaf --- just edit your LaTeX on the left,
+% and we'll compile it for you on the right. If you open the
+% 'Share' menu, you can invite other users to edit at the same
+% time. See www.overleaf.com/learn for more info. Enjoy!
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{hyperref}
+
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm*}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem*{prop*}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{dfn}{Definition}
+
+% cleveref
+\usepackage{cleveref}
+
+\title{On the solvability of Burton--Miller-type boundary integral equations}
+\author{Kei MATSUSHIMA}
+\begin{document}
+\maketitle
+
+\section{Scattering problems}
+Throughout this note, we assume that $\Omega$ is a bounded subset of $\mathbb R^d$ ($d=2$ or $3$) which is the open complement of an unbounded domain of class $C^2$. Namely, the open and bounded subset $\Omega$ is not necessarily connected.
+
+Given a constant $k>0$, we shall consider
+\begin{align}\label{eq:gE}
+\begin{cases}
+\varDelta u + k^2 u = 0 \quad &\text{ in } \Omega,\\
+u = 0
+\quad &\text{ on } \partial \Omega,
+\end{cases}
+\end{align}
+
+\end{document}
