@@ -14,34 +14,126 @@
 
 
 \theoremstyle{plain}
-\newtheorem{thm}{Theorem}
+\newtheorem{thm}{Theorem}[section]
 \newtheorem*{thm*}{Theorem}
-\newtheorem{lemma}{Lemma}
+
+\newtheorem{lemma}[thm]{Lemma}
 \newtheorem*{lemma*}{Lemma}
-\newtheorem{prop}{Proposition}
+
+\newtheorem{prop}[thm]{Proposition}
 \newtheorem*{prop*}{Proposition}
 
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem*{cor*}{Corollary}
+
 \theoremstyle{definition}
-\newtheorem{dfn}{Definition}
+\newtheorem{dfn}[thm]{Definition}
 
 % cleveref
 \usepackage{cleveref}
+\crefname{equation}{}{}
+\crefname{thm}{Theorem}{Theorem}
 
 \title{On the solvability of Burton--Miller-type boundary integral equations}
 \author{Kei MATSUSHIMA}
 \begin{document}
 \maketitle
 
-\section{Scattering problems}
+\section{Exterior problems}
 Throughout this note, we assume that $\Omega$ is a bounded subset of $\mathbb R^d$ ($d=2$ or $3$) which is the open complement of an unbounded domain of class $C^2$. Namely, the open and bounded subset $\Omega$ is not necessarily connected.
 
-Given a constant $k>0$, we shall consider
-\begin{align}\label{eq:gE}
-\begin{cases}
-\varDelta u + k^2 u = 0 \quad &\text{ in } \Omega,\\
-u = 0
-\quad &\text{ on } \partial \Omega,
-\end{cases}
+Given a constant $k\in\mathbb C$, we shall consider
+\begin{itemize}
+    \item Exterior Dirichlet problem: find $u\in C^2(\mathbb R^d\setminus\overline\Omega) \cap C^1(\mathbb R^d\setminus\Omega)$ such that
+    \begin{align}\label{eq:dirichlet}
+        \begin{cases}
+            \varDelta u + k^2 u = 0 \quad &\text{ in } \Omega,\\
+            u = f \quad &\text{ on } \partial \Omega,
+            \\
+            \displaystyle r^{(d-1)/2}\left( \frac{\partial u}{\partial r} - \mathrm iku\right) \to 0  \quad &\text{ uniformly as } |x|=:r\to\infty
+        \end{cases}
+    \end{align}
+    \item Exterior Neumann problem: find $u\in C^2(\mathbb R^d\setminus\overline\Omega) \cap C^1(\mathbb R^d\setminus\Omega)$ such that
+    \begin{align}\label{eq:neumann}
+        \begin{cases}
+            \varDelta u + k^2 u = 0 \quad &\text{ in } \Omega,\\
+            \displaystyle \left. \frac{\partial u}{\partial \nu}\right|_+ = g \quad &\text{ on } \partial \Omega,
+            \\
+            \displaystyle r^{(d-1)/2}\left( \frac{\partial u}{\partial r} - \mathrm iku\right) \to 0  \quad &\text{ uniformly as } |x|=:r\to\infty
+        \end{cases}
+        ,
+    \end{align}
+\end{itemize}
+where $f$ and $g$ are given functions on $\partial\Omega$. The normal derivative should be understood in the sense of uniform convergence with parallel surfaces. For a function $\varphi\in C^1(\Omega)$, we define
+\begin{align}
+    \left. \frac{\partial \varphi}{\partial \nu}\right|_-(x) := \lim_{h\to +0} \nu(x)\cdot \nabla \varphi(x - h\nu(x)) \quad\text{ on }\partial\Omega
 \end{align}
+when it converges uniformly on $\partial\Omega$, where $\nu$ is the unit normal vector on $\partial\Omega$ outward to $\Omega$. Similarly, for a function $\varphi\in C^1(\mathbb R^d\setminus\overline\Omega)$, we define
+\begin{align}
+    \left. \frac{\partial \varphi}{\partial \nu}\right|_+(x) := \lim_{h\to +0} \nu(x)\cdot \nabla \varphi(x + h\nu(x)) \quad\text{ on }\partial\Omega
+\end{align}
+when it converges uniformly on $\partial\Omega$.
+
+The well-posedness of the exterior Dirichlet and Neumann problems can be established via layer-potential techniques. 
+\begin{thm}[Colton and Kress \cite{colton1998inverse}, Theorem 3.11]\label{thm:wellposed-dirichlet}
+    Let $k>0$ and $f\in C(\partial\Omega)$. Then the exterior Dirichlet problem \cref{eq:dirichlet} is uniquely solvable.
+\end{thm}
+
+\begin{thm}[Colton and Kress \cite{colton1998inverse}, Theorem 3.12]\label{thm:wellposed-neumann}
+    Let $k>0$ and $g\in C(\partial\Omega)$. Then the exterior Neumann problem \cref{eq:neumann} is uniquely solvable.
+\end{thm}
+
+As a consequence, we immediately obtain the following results.
+\begin{cor}
+    Suppose that a function $\varphi\in C^2(\mathbb R^d\setminus\overline\Omega)$ solves the Helmholtz equation
+    \begin{align*}
+        \varDelta \varphi + k^2 \varphi  = 0 \quad\text{ in }\mathbb R^d\setminus\overline\Omega
+    \end{align*}
+    for some $k>0$ and 
+    \begin{align}\label{eq:tmp1}
+        \lim_{h\to+0} \varphi (x+h\nu(x)) = 0 
+    \end{align}
+    uniformly on $\partial\Omega$. Then $\varphi (x)=0$ for all $x\in \mathbb R^d\setminus\overline\Omega$.
+\end{cor}
+\begin{proof}
+    Define a function $u$ by
+    \begin{align*}
+        u(x) :=
+        \begin{cases}
+            \varphi(x) & x\in \mathbb R^d\setminus\overline\Omega
+            \\
+            0 & x\in \partial\Omega
+        \end{cases}
+        .
+    \end{align*}
+    It is easy to see that $u$ belongs to $C^2(\mathbb R^d\setminus\overline\Omega) \cap C^1(\mathbb R^d\setminus\Omega)$ from the uniform convergence \cref{eq:tmp1}. Since $u\in C^2(\mathbb R^d\setminus\overline\Omega) \cap C^1(\mathbb R^d\setminus\Omega)$ solves the exterior Dirichlet problem \cref{eq:dirichlet}, the unique solvability (\cref{thm:wellposed-dirichlet}) ensures that $u=0$ in $\mathbb R^d\setminus\overline\Omega$.
+\end{proof}
+
+\begin{cor}
+    Suppose that a function $\varphi\in C^2(\mathbb R^d\setminus\overline\Omega)$ solves the Helmholtz equation
+    \begin{align*}
+        \varDelta \varphi + k^2 \varphi  = 0 \quad\text{ in }\mathbb R^d\setminus\overline\Omega
+    \end{align*}
+    for some $k>0$ and 
+    \begin{align}\label{eq:tmp1}
+        \left.\frac{\partial \varphi}{\partial\nu}\right|_+ 
+ := \lim_{h\to+0} \nu(x)\cdot \nabla\varphi (x+h\nu(x)) = 0 
+    \end{align}
+    uniformly on $\partial\Omega$. Then $\varphi (x)=0$ for all $x\in \mathbb R^d\setminus\overline\Omega$.
+\end{cor}
+\begin{proof}
+    It is easy to see that there exists a unique extension $u\in C^2(\mathbb R^d\setminus\overline\Omega) \cap C^1(\mathbb R^d\setminus\Omega)$ of $\varphi\in C^2(\mathbb R^d\setminus\overline\Omega)$ such that $\varphi = u$ in $\mathbb R^d\setminus\overline\Omega$ with the uniform convergence 
+    \begin{align*}
+        \left.\frac{\partial u}{\partial\nu}\right|_+ = \lim_{h\to+0} \nu(x)\cdot \nabla u (x+h\nu(x)) = 0 .
+    \end{align*}
+    The statement immediately follows from \cref{thm:wellposed-neumann}, i.e., the unique solvability of the exterior Neumann problem \cref{eq:neumann}.
+\end{proof}
+
+\section{Layer potentials and boundary integral operators}
+
+
+\bibliographystyle{unsrt}
+\bibliography{ref}
 
 \end{document}
+
