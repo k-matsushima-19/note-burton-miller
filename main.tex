@@ -65,13 +65,13 @@ Given a constant $k\in\mathbb C$, we shall consider
     \end{align}
 \end{itemize}
 where $f$ and $g$ are given functions on $\partial\Omega$. The normal derivative should be understood in the sense of uniform convergence with parallel surfaces. For a function $\varphi\in C^1(\Omega)$, we define
-\begin{align}
+\begin{align*}
     \left. \frac{\partial \varphi}{\partial \nu}\right|_-(x) := \lim_{h\to +0} \nu(x)\cdot \nabla \varphi(x - h\nu(x)) \quad\text{ on }\partial\Omega
-\end{align}
+\end{align*}
 when it converges uniformly on $\partial\Omega$, where $\nu$ is the unit normal vector on $\partial\Omega$ outward to $\Omega$. Similarly, for a function $\varphi\in C^1(\mathbb R^d\setminus\overline\Omega)$, we define
-\begin{align}
+\begin{align*}
     \left. \frac{\partial \varphi}{\partial \nu}\right|_+(x) := \lim_{h\to +0} \nu(x)\cdot \nabla \varphi(x + h\nu(x)) \quad\text{ on }\partial\Omega
-\end{align}
+\end{align*}
 when it converges uniformly on $\partial\Omega$.
 
 The well-posedness of the exterior Dirichlet and Neumann problems can be established via layer-potential techniques. 
@@ -88,6 +88,10 @@ As a consequence, we immediately obtain the following results.
     Suppose that a function $\varphi\in C^2(\mathbb R^d\setminus\overline\Omega)$ solves the Helmholtz equation
     \begin{align*}
         \varDelta \varphi + k^2 \varphi  = 0 \quad\text{ in }\mathbb R^d\setminus\overline\Omega
+    \end{align*}
+    with radiation condition
+    \begin{align*}
+        r^{(d-1)/2}\left( \frac{\partial \varphi}{\partial r} - \mathrm ik\varphi\right) \to 0  \quad &\text{ uniformly as } |x|=:r\to\infty
     \end{align*}
     for some $k>0$ and 
     \begin{align}\label{eq:tmp1}
@@ -114,6 +118,10 @@ As a consequence, we immediately obtain the following results.
     \begin{align*}
         \varDelta \varphi + k^2 \varphi  = 0 \quad\text{ in }\mathbb R^d\setminus\overline\Omega
     \end{align*}
+    with radiation condition
+    \begin{align*}
+        r^{(d-1)/2}\left( \frac{\partial \varphi}{\partial r} - \mathrm ik\varphi\right) \to 0  \quad &\text{ uniformly as } |x|=:r\to\infty
+    \end{align*}
     for some $k>0$ and 
     \begin{align}\label{eq:tmp1}
         \left.\frac{\partial \varphi}{\partial\nu}\right|_+ 
@@ -130,7 +138,105 @@ As a consequence, we immediately obtain the following results.
 \end{proof}
 
 \section{Layer potentials and boundary integral operators}
+Let $G$ be the fundamental solution of the Helmholtz equation, given by
+\begin{align*}
+    G(x,y) = \frac{\mathrm i}{4}H^{(1)}_0(k|x-y|), \quad x,y\in\mathbb R^2,x\neq y
+\end{align*}
+for $d=2$ or
+\begin{align*}
+    G(x,y) = \frac{1}{4\pi} \frac{\mathrm e^{\mathrm ik|x-y|}}{|x-y|}, \quad x,y\in\mathbb R^3,x\neq y
+\end{align*}
+for $d=3$, where $H^{(1)}_n$ is the Hankel function of the first kind and order $n$. Given $\varphi\in C(\partial\Omega)$, the function
+\begin{align*}
+    \mathbb R^d\setminus \partial\Omega \ni x\mapsto \int_{\partial\Omega} G(x,y)\varphi(y)\mathrm ds(y)
+\end{align*}
+is called a \textit{single-layer potential} with density $\varphi\in C(\partial\Omega)$. Analogously, for $\varphi\in C(\partial\Omega)$, 
+\begin{align*}
+    \mathbb R^d\setminus \partial\Omega \ni x\mapsto \int_{\partial\Omega} \frac{\partial G}{\partial \nu(y)}(x,y)\varphi(y)\mathrm ds(y)
+\end{align*}
+is called a \textit{double-layer potential} with density $\varphi\in C(\partial\Omega)$.
 
+We are interested in the limiting case where the point $x$ lies on the boundary $\partial\Omega$. In view of this, we formally write
+\begin{align*}
+    (S\varphi)(x) :=& \int_{\partial\Omega} G(x,y)\varphi(y) \mathrm ds(y) \quad x\in\partial\Omega,
+\\
+    (D\varphi)(x) :=& \int_{\partial\Omega} \frac{\partial G}{\partial \nu(y)}(x,y)\varphi(y) \mathrm ds(y) \quad x\in\partial\Omega,
+\\
+    (D^\prime \varphi)(x) :=& \int_{\partial\Omega} \frac{\partial G}{\partial \nu(x)}(x,y)\varphi(y) \mathrm ds(y) \quad x\in\partial\Omega,
+\\
+    (N\varphi)(x) :=& \frac{\partial}{\partial\nu(x)} \int_{\partial\Omega} \frac{\partial G}{\partial \nu(y)}(x,y)\varphi(y) \mathrm ds(y) \quad x\in\partial\Omega.
+\end{align*}
+In order that the operators $S$, $D$, $D^\prime$, and $N$ are well-defined, the function $\varphi$ requires sufficient regularity on $\partial\Omega$. We have the following \textit{mapping properties} of boundary integral operators:
+\begin{thm}[Colton and Kress \cite{colton1998inverse}, Theorem 3.4]
+    Let $k>0$, $\alpha\in(0,1]$ and let $\partial\Omega$ be of class $C^2$. Then the following operators are well-defined and linear with some additional properties:
+    \begin{itemize}
+        \item $S:C(\partial\Omega)\to C(\partial\Omega)$, compact
+        \item $S:C(\partial\Omega)\to C^{0,\alpha}(\partial\Omega)$, bounded
+        \item $S:C^{0,\alpha}(\partial\Omega)\to C^{1,\alpha}(\partial\Omega)$, bounded
+        \item $S:C^{1,\alpha}(\partial\Omega)\to C^{1,\alpha}(\partial\Omega)$, compact
+        \item $D:C(\partial\Omega)\to C(\partial\Omega)$, compact
+        \item $D:C(\partial\Omega)\to C^{0,\alpha}(\partial\Omega)$, bounded
+        \item $D:C^{0,\alpha}(\partial\Omega)\to C^{1,\alpha}(\partial\Omega)$, bounded
+        \item $D:C^{1,\alpha}(\partial\Omega)\to C^{1,\alpha}(\partial\Omega)$, compact
+        \item $D^\prime:C(\partial\Omega)\to C(\partial\Omega)$, compact
+        \item $D^\prime:C(\partial\Omega)\to C^{0,\alpha}(\partial\Omega)$, bounded
+        \item $D^\prime:C^{1,\alpha}(\partial\Omega)\to C^{1,\alpha}(\partial\Omega)$, compact
+        \item $N:C^{1,\alpha}(\partial\Omega)\to C^{0,\alpha}(\partial\Omega)$, bounded
+        \item $SN:C^{1,\alpha}(\partial\Omega)\to C^{1,\alpha}(\partial\Omega)$, $SN=D^2-I$, Fredholm of index zero
+        \item $NS:C^{0,\alpha}(\partial\Omega)\to C^{0,\alpha}(\partial\Omega)$, $NS=(D^\prime)^2 - I$, Fredholm of index zero
+    \end{itemize}
+\end{thm}
+
+The layer potentials are associated with the boundary integral operators via the following \textit{jump relations}:
+\begin{thm}[Colton and Kress \cite{colton1998inverse}, Theorem 3.1]
+    Let $k>0$ and $\varphi\in C(\partial\Omega)$. Then the single-layer potential
+    \begin{align*}
+        w(x) := \int_{\partial\Omega} G(x,y)\varphi(y)\mathrm ds(y) \quad x\in\mathbb R^d\setminus\partial\Omega
+    \end{align*}
+    is twice-continuously differentiable and solves the Helmholtz equation
+    \begin{align*}
+        \varDelta w(x) + k^2 w(x) = 0 \quad \text{ for all }x\in \mathbb R^d\setminus\partial\Omega
+    \end{align*}
+    with radiation condition
+    \begin{align*}
+        r^{(d-1)/2}\left( \frac{\partial w}{\partial r} - \mathrm ikw\right) \to 0  \quad &\text{ uniformly as } |x|=:r\to\infty.
+    \end{align*}
+    Moreover, the limit
+    \begin{align*}
+        \lim_{h\to +0} w(x \pm h\nu(x)) = (S\varphi)(x)
+    \end{align*}
+    converges uniformly to the continuous function on $\partial\Omega$. Analogously, the limit
+    \begin{align*}
+        \left.\frac{\partial w}{\partial\nu}\right|_\pm(x) :=  \lim_{h\to +0} \nu(x)\cdot \nabla w(x \pm h\nu(x)) = \mp \frac{1}{2}\varphi(x) + (D^\prime\varphi)(x)
+    \end{align*}
+    converges uniformly to the continuous function on $\partial\Omega$.
+\end{thm}
+
+\begin{thm}[Colton and Kress \cite{colton1998inverse}, Theorem 3.1]
+    Let $k>0$ and $\varphi\in C(\partial\Omega)$. Then the double-layer potential
+    \begin{align*}
+        v(x) := \int_{\partial\Omega} \frac{\partial G}{\partial \nu(y)}(x,y)\varphi(y)\mathrm ds(y) \quad x\in\mathbb R^d\setminus\partial\Omega
+    \end{align*}
+    is twice-continuously differentiable and solves the Helmholtz equation
+    \begin{align*}
+        \varDelta v(x) + k^2 v(x) = 0 \quad \text{ for all }x\in \mathbb R^d\setminus\partial\Omega
+    \end{align*}
+    with radiation condition
+    \begin{align*}
+        r^{(d-1)/2}\left( \frac{\partial v}{\partial r} - \mathrm ikv\right) \to 0  \quad &\text{ uniformly as } |x|=:r\to\infty.
+    \end{align*}
+    Moreover, the limit
+    \begin{align*}
+        \lim_{h\to +0} v(x \pm h\nu(x)) = \pm \frac{1}{2}\varphi(x) + (D\varphi)(x)
+    \end{align*}
+    converges uniformly to the continuous function on $\partial\Omega$, and
+    \begin{align*}
+        \lim_{h\to +0} \left[
+            \nu(x)\cdot \nabla v(x + h\nu(x)) - \nu(x)\cdot \nabla v(x - h\nu(x))
+        \right] = 0
+    \end{align*}
+    uniformly on $\partial\Omega$.
+\end{thm}
 
 \bibliographystyle{unsrt}
 \bibliography{ref}
